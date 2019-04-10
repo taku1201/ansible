@@ -36,7 +36,7 @@
   - name: disable firewalld
     systemd:
       name: firewalld
-      state: disabled
+      enabled: no
   tags:
     - setup
 
