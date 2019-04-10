@@ -37,6 +37,12 @@
     systemd:
       name: firewalld
       enabled: no
+
+  - name: setup shell prompt
+    lineinfile:
+      dest: "/etc/profile"
+      state: present
+      line: 'PS1="({{stage}})[\u@\h \W]\$ "'
   tags:
     - setup
 
