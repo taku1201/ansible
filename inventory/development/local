@@ -1,0 +1,5 @@
+[common]
+localhost
+
+[all:vars]
+stage=development

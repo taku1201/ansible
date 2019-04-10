@@ -1,0 +1,48 @@
+- block:
+  - name: include common variables
+    include_vars: "main.yml"
+  
+  - name: include environment specific variables
+    include_vars: "{{stage}}.yml"
+  tags:
+    - always
+
+- block:
+  - name: set locale to en_US.utf8
+    copy:
+      src: "system/locale.conf"
+      dest: "/etc/locale.conf"
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: disable ipv6
+    copy:
+      src: "system/disable_ipv6.conf"
+      dest: "/etc/sysctl.d/disable_ipv6.conf"
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: set timezone to Asia/Tokyo
+    timezone:
+      name: Asia/Tokyo
+
+  - name: disable selinux
+    selinux:
+      state: disabled
+    when: ansible_distribution in ["CentOS", "Amazon"]
+
+  - name: disable firewalld
+    systemd:
+      name: firewalld
+      state: disabled
+  tags:
+    - setup
+
+- block:
+  - name: install yum base packages
+    yum:
+      name: "{{yum_base_packages}}"
+      state: latest
+

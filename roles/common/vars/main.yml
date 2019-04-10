@@ -1,0 +1,9 @@
+yum_base_packages:
+  - curl
+  - wget
+  - zip
+  - unzip
+  - bind-utils
+  - yum-utils
+  - openssl
+  - mlocate
