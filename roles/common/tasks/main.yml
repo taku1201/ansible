@@ -46,3 +46,8 @@
       name: "{{yum_base_packages}}"
       state: latest
 
+  - name: install pip base packages
+    pip:
+      name: "{{pip_base_packages}}"
+      state: latest
+  tags: ["setup", "update"]
