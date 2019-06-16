@@ -1,0 +1,14 @@
+composer_installer_url: "https://getcomposer.org/installer"
+
+remi_repo_url: "https://rpms.remirepo.net/enterprise/remi-release-7.rpm"
+
+php_packages:
+  - php-apcu
+  - php-cli
+  - php-common
+  - php-json
+  - php-mbstring
+  - php-mysqlnd
+  - php-opcache
+  - php-zip
+
