@@ -1,0 +1,4 @@
+- block:
+  - name: reload nginx
+    service:
+      state: reloaded
