@@ -7,3 +7,8 @@ yum_base_packages:
   - yum-utils
   - openssl
   - mlocate
+
+pip_base_packages:
+  - awscli
+  - boto3
+  - botocore

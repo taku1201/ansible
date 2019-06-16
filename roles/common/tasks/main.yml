@@ -31,14 +31,19 @@
   - name: disable selinux
     selinux:
       state: disabled
-    when: ansible_distribution in ["CentOS", "Amazon"]
+    when: ansible_distribution in ["CentOS"]
 
   - name: disable firewalld
     systemd:
       name: firewalld
-      state: disabled
-  tags:
-    - setup
+      enabled: no
+
+  - name: setup shell prompt
+    lineinfile:
+      dest: "/etc/profile"
+      state: present
+      line: 'PS1="({{stage}})[\u@\h \W]\$ "'
+  tags: ["never", "setup"]
 
 - block:
   - name: install yum base packages
@@ -46,3 +51,8 @@
       name: "{{yum_base_packages}}"
       state: latest
 
+  - name: install pip base packages
+    pip:
+      name: "{{pip_base_packages}}"
+      state: latest
+  tags: ["never", "setup", "update"]
