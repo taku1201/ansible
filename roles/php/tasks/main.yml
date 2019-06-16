@@ -1,0 +1,21 @@
+- block:
+  - name: include common variables
+    include_vars: "main.yml"
+  tags:
+    - always
+
+- block:
+  - name: setup remi repository
+    yum:
+      name: "{{remi_repo_url}}"
+      state: latest
+  tags: ["never", "setup"]
+
+- block:
+  - name: install php packages
+    yum:
+      name: "{{php_packages}}"
+      state: latest
+      enablerepo: "remi-php73"
+  tags: ["never", "setup", "update"]
+
