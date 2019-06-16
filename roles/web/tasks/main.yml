@@ -1,0 +1,43 @@
+- block:
+  - name: setup nginx yum repository
+    copy:
+      src: "repos/nginx.repo"
+      dest: "/etc/yum.repos.d/nginx.repo"
+      owner: "root"
+      group: "root"
+      mode: 0644
+  tags: ["never", "setup"]
+
+- block:
+  - name: install nginx
+    yum:
+      name: "nginx"
+      state: "latest"
+  tags: ["never", "setup", "update"]
+
+- block:
+  - name: copy nginx.conf
+    copy:
+      src: "nginx/nginx.conf"
+      dest: "/etc/nginx/nginx.conf"
+      owner: "root"
+      group: "root"
+      mode: 0644
+    notify: reload nginx
+
+  - name: copy default.conf
+    copy:
+      src: "nginx/default.conf"
+      dest: "/etc/nginx/conf.d/default.conf"
+      owner: "root"
+      group: "root"
+      mode: 0644
+    notify: reload nginx
+  tags: ["never", "setup", "config"]
+
+- block:
+  - name: start nginx
+    service:
+      name: "nginx"
+      enabled: "yes"
+  tags: ["never", "setup"]
