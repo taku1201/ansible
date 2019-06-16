@@ -19,3 +19,23 @@
       enablerepo: "remi-php73"
   tags: ["never", "setup", "update"]
 
+- block:
+  - name: check composer stat
+    stat:
+      path: "/usr/local/bin/composer"
+    register: composer
+
+  - name: download composer installer
+    get_url:
+      url: "{{composer_installer_url}}"
+      dest: "/usr/local/src/composer_installer"
+      owner: root
+      group: root
+      mode: 0755
+    when: composer.stat.exists == False
+
+  - name: install composer
+    command: "php /usr/local/src/composer_installer --install-dir=/usr/local/bin --filename=composer"
+    when: composer.stat.exists == False
+  tags: ["never", "setup"]
+
