@@ -43,8 +43,7 @@
       dest: "/etc/profile"
       state: present
       line: 'PS1="({{stage}})[\u@\h \W]\$ "'
-  tags:
-    - setup
+  tags: ["never", "setup"]
 
 - block:
   - name: install yum base packages
@@ -56,4 +55,4 @@
     pip:
       name: "{{pip_base_packages}}"
       state: latest
-  tags: ["setup", "update"]
+  tags: ["never", "setup", "update"]
