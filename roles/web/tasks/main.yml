@@ -23,7 +23,6 @@
       owner: "root"
       group: "root"
       mode: 0644
-    notify: reload nginx
 
   - name: copy default.conf
     copy:
@@ -32,12 +31,12 @@
       owner: "root"
       group: "root"
       mode: 0644
-    notify: reload nginx
   tags: ["never", "setup", "config"]
 
 - block:
-  - name: start nginx
+  - name: enable systemd services
     service:
-      name: "nginx"
+      name: "{{ item }}"
       enabled: "yes"
+    with_items: "{{ systemd_services }}"
   tags: ["never", "setup"]

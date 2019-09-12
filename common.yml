@@ -1,4 +1,6 @@
 - hosts: common
   become: yes
+  become_user: centos
   roles:
     - common
+

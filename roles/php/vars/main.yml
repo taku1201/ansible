@@ -6,6 +6,7 @@ php_packages:
   - php-apcu
   - php-cli
   - php-common
+  - php-fpm
   - php-json
   - php-mbstring
   - php-mysqlnd

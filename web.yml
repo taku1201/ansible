@@ -1,5 +1,6 @@
 - hosts: web
   become: yess
+  become_user: centos
   roles:
     - common
     - php

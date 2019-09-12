@@ -7,15 +7,15 @@
 - block:
   - name: setup remi repository
     yum:
-      name: "{{remi_repo_url}}"
-      state: latest
+      name: "{{ remi_repo_url }}"
+      state: "latest"
   tags: ["never", "setup"]
 
 - block:
   - name: install php packages
     yum:
-      name: "{{php_packages}}"
-      state: latest
+      name: "{{ php_packages }}"
+      state: "latest"
       enablerepo: "remi-php73"
   tags: ["never", "setup", "update"]
 
@@ -23,14 +23,14 @@
   - name: check composer stat
     stat:
       path: "/usr/local/bin/composer"
-    register: composer
+    register: "composer"
 
   - name: download composer installer
     get_url:
-      url: "{{composer_installer_url}}"
+      url: "{{ composer_installer_url }}"
       dest: "/usr/local/src/composer_installer"
-      owner: root
-      group: root
+      owner: "root"
+      group: "root"
       mode: 0755
     when: composer.stat.exists == False
 
